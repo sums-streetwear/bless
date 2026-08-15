@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0b0b">
+
+<title>TwinBlessing AI</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --bg:#050505;
+    --panel:#0b0b0b;
+    --panel2:#111111;
+    --border:#262626;
+    --text:#f5f5f5;
+    --muted:#858585;
+    --hover:#191919;
+    --user:#202020;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* APP */
+
+.app{
+    display:flex;
+    height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:260px;
+    background:var(--panel);
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    padding:14px;
+}
+
+.logo-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:8px 6px 18px;
+}
+
+.logo{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:#fff;
+    color:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:900;
+    font-size:14px;
+}
+
+.brand-name{
+    font-weight:700;
+    font-size:15px;
+}
+
+.brand-status{
+    color:#777;
+    font-size:11px;
+    margin-top:3px;
+}
+
+.new-chat{
+    width:100%;
+    border:1px solid var(--border);
+    background:#151515;
+    color:#fff;
+    border-radius:11px;
+    padding:12px;
+    cursor:pointer;
+    text-align:left;
+    margin-bottom:18px;
+}
+
+.new-chat:hover{
+    background:var(--hover);
+}
+
+.sidebar-label{
+    color:#555;
+    font-size:11px;
+    padding:0 8px 8px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+}
+
+.history{
+    overflow-y:auto;
+    flex:1;
+}
+
+.history-item{
+    width:100%;
+    background:transparent;
+    color:#aaa;
+    border:0;
+    padding:10px;
+    border-radius:9px;
+    text-align:left;
+    cursor:pointer;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-size:13px;
+}
+
+.history-item:hover{
+    background:var(--hover);
+    color:#fff;
+}
+
+.sidebar-bottom{
+    border-top:1px solid var(--border);
+    padding:14px 6px 3px;
+    color:#555;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* MAIN */
+
+.main{
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+}
+
+/* HEADER */
+
+.header{
+    height:62px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    background:rgba(5,5,5,.94);
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.mobile-menu{
+    display:none;
+    background:none;
+    border:0;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.header-title{
+    font-size:15px;
+    font-weight:700;
+}
+
+.header-sub{
+    color:#666;
+    font-size:10px;
+    margin-top:2px;
+}
+
+.online{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:#777;
+    font-size:11px;
+}
+
+.dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#65c466;
+}
+
+/* CHAT */
+
+.chat{
+    flex:1;
+    overflow-y:auto;
+    scroll-behavior:smooth;
+    padding:20px 18px 30px;
+}
+
+.chat::-webkit-scrollbar{
+    width:7px;
+}
+
+.chat::-webkit-scrollbar-thumb{
+    background:#292929;
+    border-radius:20px;
+}
+
+/* WELCOME */
+
+.welcome{
+    max-width:850px;
+    margin:90px auto 0;
+    text-align:center;
+}
+
+.welcome-logo{
+    width:76px;
+    height:76px;
+    border-radius:23px;
+    background:#fff;
+    color:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 24px;
+    font-size:21px;
+    font-weight:900;
+}
+
+.welcome h1{
+    font-size:34px;
+    letter-spacing:-.8px;
+    margin-bottom:10px;
+}
+
+.welcome p{
+    color:#777;
+    font-size:14px;
+}
+
+.cards{
+    margin-top:32px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.card{
+    border:1px solid var(--border);
+    background:#0d0d0d;
+    color:#ddd;
+    border-radius:13px;
+    padding:16px;
+    text-align:left;
+    cursor:pointer;
+    transition:.15s;
+}
+
+.card:hover{
+    background:#171717;
+    transform:translateY(-1px);
+}
+
+.card-title{
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+.card-desc{
+    color:#666;
+    font-size:12px;
+}
+
+/* MESSAGE */
+
+.message{
+    max-width:850px;
+    margin:0 auto 28px;
+    display:flex;
+    gap:12px;
+}
+
+.avatar{
+    width:34px;
+    height:34px;
+    min-width:34px;
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:9px;
+    font-weight:900;
+}
+
+.bot-avatar{
+    background:#fff;
+    color:#000;
+}
+
+.user-avatar{
+    background:#292929;
+    color:#fff;
+}
+
+.message-content{
+    flex:1;
+    min-width:0;
+}
+
+.message-name{
+    font-size:11px;
+    color:#777;
+    margin:2px 0 7px;
+}
+
+.message-text{
+    line-height:1.7;
+    font-size:14px;
+    white-space:pre-wrap;
+    word-wrap:break-word;
+}
+
+.message-actions{
+    display:flex;
+    gap:6px;
+    margin-top:9px;
+}
+
+.action-btn{
+    border:1px solid #252525;
+    background:#0d0d0d;
+    color:#777;
+    border-radius:7px;
+    padding:5px 8px;
+    cursor:pointer;
+    font-size:10px;
+}
+
+.action-btn:hover{
+    color:#fff;
+    background:#171717;
+}
+
+/* SOURCES */
+
+.sources{
+    margin-top:14px;
+    border:1px solid var(--border);
+    background:#0d0d0d;
+    border-radius:12px;
+    padding:10px;
+}
+
+.sources-title{
+    color:#777;
+    font-size:11px;
+    margin-bottom:7px;
+}
+
+.source-link{
+    display:block;
+    color:#ccc;
+    text-decoration:none;
+    border-top:1px solid #202020;
+    padding:9px 3px;
+    font-size:12px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.source-link:first-of-type{
+    border-top:0;
+}
+
+.source-link:hover{
+    color:#fff;
+}
+
+/* TYPING */
+
+.typing{
+    display:flex;
+    gap:4px;
+    padding:5px 0;
+}
+
+.typing span{
+    width:6px;
+    height:6px;
+    background:#777;
+    border-radius:50%;
+    animation:bounce 1s infinite;
+}
+
+.typing span:nth-child(2){
+    animation-delay:.15s;
+}
+
+.typing span:nth-child(3){
+    animation-delay:.3s;
+}
+
+@keyframes bounce{
+    0%,60%,100%{
+        transform:translateY(0);
+        opacity:.4;
+    }
+    30%{
+        transform:translateY(-4px);
+        opacity:1;
+    }
+}
+
+/* INPUT */
+
+.input-area{
+    padding:8px 18px 18px;
+}
+
+.input-container{
+    max-width:850px;
+    margin:auto;
+}
+
+.input-box{
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+    border:1px solid #333;
+    background:#151515;
+    border-radius:17px;
+    padding:8px 8px 8px 15px;
+}
+
+.input-box:focus-within{
+    border-color:#4a4a4a;
+}
+
+textarea{
+    flex:1;
+    min-width:0;
+    max-height:160px;
+    resize:none;
+    background:transparent;
+    border:0;
+    outline:0;
+    color:#fff;
+    font-size:14px;
+    line-height:1.5;
+    padding:9px 0;
+}
+
+textarea::placeholder{
+    color:#666;
+}
+
+.send{
+    width:40px;
+    height:40px;
+    min-width:40px;
+    border:0;
+    border-radius:11px;
+    background:#fff;
+    color:#000;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.send:hover{
+    transform:scale(1.03);
+}
+
+.send:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+}
+
+.input-tools{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:7px;
+}
+
+.tool-text{
+    color:#555;
+    font-size:10px;
+}
+
+.clear-btn{
+    background:transparent;
+    border:0;
+    color:#555;
+    cursor:pointer;
+    font-size:10px;
+}
+
+.clear-btn:hover{
+    color:#aaa;
+}
+
+/* MOBILE */
+
+@media(max-width:760px){
+
+    .sidebar{
+        display:none;
+        position:fixed;
+        z-index:20;
+        left:0;
+        top:0;
+        bottom:0;
+    }
+
+    .sidebar.open{
+        display:flex;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .header{
+        padding:0 13px;
+    }
+
+    .welcome{
+        margin:55px auto 0;
+    }
+
+    .welcome h1{
+        font-size:27px;
+    }
+
+    .welcome-logo{
+        width:68px;
+        height:68px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .chat{
+        padding:15px 12px 25px;
+    }
+
+    .input-area{
+        padding:7px 9px 12px;
+    }
+
+    .message{
+        gap:9px;
+    }
+
+    .avatar{
+        width:30px;
+        height:30px;
+        min-width:30px;
+    }
+
+    .message-text{
+        font-size:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo-row">
+
+        <div class="logo">
+            TB
+        </div>
+
+        <div>
+            <div class="brand-name">
+                TwinBlessing
+            </div>
+
+            <div class="brand-status">
+                AI Assistant
+            </div>
+        </div>
+
+    </div>
+
+    <button class="new-chat" onclick="newChat()">
+        ＋ New chat
+    </button>
+
+    <div class="sidebar-label">
+        Recent chats
+    </div>
+
+    <div class="history" id="history"></div>
+
+    <div class="sidebar-bottom">
+        TwinBlessing AI<br>
+        Powered by your AI backend.
+    </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="header">
+
+    <div class="header-left">
+
+        <button
+            class="mobile-menu"
+            onclick="toggleSidebar()"
+        >
+            ☰
+        </button>
+
+        <div>
+            <div class="header-title">
+                TwinBlessing
+            </div>
+
+            <div class="header-sub">
+                Smart AI Assistant
+            </div>
+        </div>
+
+    </div>
+
+    <div class="online">
+        <span class="dot"></span>
+        Online
+    </div>
+
+</header>
+
+
+<!-- CHAT -->
+
+<section class="chat" id="chat">
+
+    <div class="welcome" id="welcome">
+
+        <div class="welcome-logo">
+            TB
+        </div>
+
+        <h1>
+            What can I help you with?
+        </h1>
+
+        <p>
+            Ask TwinBlessing a question.
+        </p>
+
+
+        <div class="cards">
+
+            <button
+                class="card"
+                onclick="quickAsk('Explain artificial intelligence in simple words')"
+            >
+                <div class="card-title">
+                    🧠 Explain something
+                </div>
+
+                <div class="card-desc">
+                    Get a clear explanation of a difficult topic.
+                </div>
+            </button>
+
+
+            <button
+                class="card"
+                onclick="quickAsk('What are the latest technology news?')"
+            >
+                <div class="card-title">
+                    🔎 Search the web
+                </div>
+
+                <div class="card-desc">
+                    Find current information online.
+                </div>
+            </button>
+
+
+            <button
+                class="card"
+                onclick="quickAsk('Give me three creative website ideas')"
+            >
+                <div class="card-title">
+                    💡 Brainstorm
+                </div>
+
+                <div class="card-desc">
+                    Get ideas for projects and websites.
+                </div>
+            </button>
+
+
+            <button
+                class="card"
+                onclick="quickAsk('Help me write a JavaScript program')"
+            >
+                <div class="card-title">
+                    💻 Write code
+                </div>
+
+                <div class="card-desc">
+                    Get help building and fixing code.
+                </div>
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INPUT -->
+
+<div class="input-area">
+
+    <div class="input-container">
+
+        <div class="input-box">
+
+            <textarea
+                id="input"
+                rows="1"
+                placeholder="Message TwinBlessing..."
+            ></textarea>
+
+            <button
+                class="send"
+                id="send"
+                onclick="sendMessage()"
+                title="Send"
+            >
+                ↑
+            </button>
+
+        </div>
+
+        <div class="input-tools">
+
+            <span class="tool-text">
+                TwinBlessing can make mistakes. Check important information.
+            </span>
+
+            <button
+                class="clear-btn"
+                onclick="clearChat()"
+            >
+                Clear chat
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</main>
+
+</div>
+
+
+<script>
+
+/*
+====================================================
+TWINBLESSING BACKEND
+====================================================
+*/
+
+const BACKEND_URL =
+    "https://twinblessingai.onrender.com";
+
+
+/*
+====================================================
+ELEMENTS
+====================================================
+*/
+
+const chat =
+    document.getElementById("chat");
+
+const input =
+    document.getElementById("input");
+
+const send =
+    document.getElementById("send");
+
+const historyBox =
+    document.getElementById("history");
+
+const sidebar =
+    document.getElementById("sidebar");
+
+
+/*
+====================================================
+STATE
+====================================================
+*/
+
+let conversation = [];
+
+let isSending = false;
+
+
+/*
+====================================================
+LOAD SAVED HISTORY
+====================================================
+*/
+
+function loadHistory(){
+
+    try{
+
+        const saved =
+            localStorage.getItem(
+                "twinblessing-history"
+            );
+
+        if(!saved){
+            return;
+        }
+
+        const items =
+            JSON.parse(saved);
+
+        items.forEach(item => {
+
+            addHistoryItem(
+                item
+            );
+
+        });
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+}
+
+
+/*
+====================================================
+SAVE HISTORY
+====================================================
+*/
+
+function saveHistory(){
+
+    try{
+
+        localStorage.setItem(
+            "twinblessing-history",
+            JSON.stringify(
+                conversation.slice(-30)
+            )
+        );
+
+    }catch(error){
+
+        console.error(error);
+
+    }
+}
+
+
+/*
+====================================================
+HISTORY ITEM
+====================================================
+*/
+
+function addHistoryItem(text){
+
+    if(!text){
+        return;
+    }
+
+    const button =
+        document.createElement("button");
+
+    button.className =
+        "history-item";
+
+    button.textContent =
+        text;
+
+    button.onclick = () => {
+
+        input.value =
+            text;
+
+        input.focus();
+
+        closeMobileSidebar();
+
+    };
+
+    historyBox.prepend(button);
+
+
+    while(
+        historyBox.children.length > 20
+    ){
+
+        historyBox.lastElementChild.remove();
+
+    }
+
+}
+
+
+/*
+====================================================
+WELCOME
+====================================================
+*/
+
+function removeWelcome(){
+
+    const welcome =
+        document.getElementById("welcome");
+
+    if(welcome){
+        welcome.remove();
+    }
+
+}
+
+
+/*
+====================================================
+ADD MESSAGE
+====================================================
+*/
+
+function addMessage(
+    text,
+    type,
+    sources = []
+){
+
+    removeWelcome();
+
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message";
+
+
+    const avatar =
+        document.createElement("div");
+
+    avatar.className =
+        "avatar " +
+        (
+            type === "user"
+                ? "user-avatar"
+                : "bot-avatar"
+        );
+
+    avatar.textContent =
+        type === "user"
+            ? "YOU"
+            : "TB";
+
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "message-content";
+
+
+    const name =
+        document.createElement("div");
+
+    name.className =
+        "message-name";
+
+    name.textContent =
+        type === "user"
+            ? "You"
+            : "TwinBlessing";
+
+
+    const textElement =
+        document.createElement("div");
+
+    textElement.className =
+        "message-text";
+
+    textElement.textContent =
+        text;
+
+
+    content.appendChild(name);
+
+    content.appendChild(textElement);
+
+
+    /*
+    ACTIONS
+    */
+
+    if(type === "bot"){
+
+        const actions =
+            document.createElement("div");
+
+        actions.className =
+            "message-actions";
+
+
+        const copy =
+            document.createElement("button");
+
+        copy.className =
+            "action-btn";
+
+        copy.textContent =
+            "Copy";
+
+        copy.onclick = async () => {
+
+            try{
+
+                await navigator.clipboard.writeText(
+                    text
+                );
+
+                copy.textContent =
+                    "Copied!";
+
+                setTimeout(() => {
+
+                    copy.textContent =
+                        "Copy";
+
+                },1200);
+
+            }catch(error){
+
+                console.error(error);
+
+            }
+
+        };
+
+
+        actions.appendChild(copy);
+
+        content.appendChild(actions);
+
+    }
+
+
+    /*
+    SOURCES
+    */
+
+    if(
+        Array.isArray(sources) &&
+        sources.length > 0
+    ){
+
+        const sourcesBox =
+            document.createElement("div");
+
+        sourcesBox.className =
+            "sources";
+
+
+        const title =
+            document.createElement("div");
+
+        title.className =
+            "sources-title";
+
+        title.textContent =
+            "🔎 Web sources";
+
+
+        sourcesBox.appendChild(title);
+
+
+        const seen =
+            new Set();
+
+
+        sources.forEach(source => {
+
+            if(!source || !source.url){
+                return;
+            }
+
+            if(seen.has(source.url)){
+                return;
+            }
+
+            seen.add(source.url);
+
+
+            const link =
+                document.createElement("a");
+
+            link.className =
+                "source-link";
+
+            link.href =
+                source.url;
+
+            link.target =
+                "_blank";
+
+            link.rel =
+                "noopener noreferrer";
+
+            link.textContent =
+                "🔗 " +
+                (
+                    source.title ||
+                    source.url
+                );
+
+
+            sourcesBox.appendChild(link);
+
+        });
+
+
+        content.appendChild(
+            sourcesBox
+        );
+
+    }
+
+
+    message.appendChild(avatar);
+
+    message.appendChild(content);
+
+    chat.appendChild(message);
+
+
+    scrollToBottom();
+
+
+    return message;
+}
+
+
+/*
+====================================================
+TYPING MESSAGE
+====================================================
+*/
+
+function addTyping(){
+
+    removeWelcome();
+
+
+    const message =
+        document.createElement("div");
+
+    message.className =
+        "message";
+
+    message.id =
+        "typing-message";
+
+
+    const avatar =
+        document.createElement("div");
+
+    avatar.className =
+        "avatar bot-avatar";
+
+    avatar.textContent =
+        "TB";
+
+
+    const content =
+        document.createElement("div");
+
+    content.className =
+        "message-content";
+
+
+    const name =
+        document.createElement("div");
+
+    name.className =
+        "message-name";
+
+    name.textContent =
+        "TwinBlessing";
+
+
+    const typing =
+        document.createElement("div");
+
+    typing.className =
+        "typing";
+
+    typing.innerHTML =
+        "<span></span><span></span><span></span>";
+
+
+    content.appendChild(name);
+
+    content.appendChild(typing);
+
+    message.appendChild(avatar);
+
+    message.appendChild(content);
+
+    chat.appendChild(message);
+
+
+    scrollToBottom();
+
+}
+
+
+/*
+====================================================
+REMOVE TYPING
+====================================================
+*/
+
+function removeTyping(){
+
+    const typing =
+        document.getElementById(
+            "typing-message"
+        );
+
+    if(typing){
+        typing.remove();
+    }
+
+}
+
+
+/*
+====================================================
+SCROLL
+====================================================
+*/
